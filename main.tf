@@ -19,7 +19,6 @@ module "route_tables" {
   internet_gateway_id     = module.vpc.internet_gateway_id
   nat_gateway_a_id        = module.natgw.nat_gateway_a_id
   nat_gateway_b_id        = module.natgw.nat_gateway_b_id
-
   public_subnet_a_id      = module.subnets.public_subnet_a_id
   public_subnet_b_id      = module.subnets.public_subnet_b_id
   private_subnet_a_id     = module.subnets.private_subnet_a_id

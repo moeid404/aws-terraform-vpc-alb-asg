@@ -12,7 +12,7 @@ resource "aws_key_pair" "bastion_key" {
   public_key = tls_private_key.bastion_key.public_key_openssh
 
   provisioner "local-exec" {
-    command = "echo '${tls_private_key.bastion_key.private_key_pem}' > ./bastion_key.pem && chmod 600 ./bastion_key.pem"
+    command = "echo '${tls_private_key.bastion_key.private_key_pem}' > ${var.private_key_path} && chmod 600 ${var.private_key_path}"
   }
 }
 
@@ -28,10 +28,10 @@ resource "aws_instance" "public_instance_a" {
   }
   user_data = <<-EOF
               #!/bin/bash
-              mkdir -p /home/ubuntu/.ssh
-              echo '${tls_private_key.bastion_key.private_key_pem}' > /home/ubuntu/.ssh/bastion_key.pem
-              chmod 600 /home/ubuntu/.ssh/bastion_key.pem
-              chown ubuntu:ubuntu /home/ubuntu/.ssh/bastion_key.pem
+              mkdir -p /home/${var.key_owner}/.ssh
+              echo '${tls_private_key.bastion_key.private_key_pem}' > ${var.private_key_path}
+              chmod 600 ${var.private_key_path}
+              chown ${var.key_owner}:${var.key_owner} ${var.private_key_path}
               EOF
 }
 
@@ -46,10 +46,10 @@ resource "aws_instance" "public_instance_b" {
   }
   user_data = <<-EOF
               #!/bin/bash
-              mkdir -p /home/ubuntu/.ssh
-              echo '${tls_private_key.bastion_key.private_key_pem}' > /home/ubuntu/.ssh/bastion_key.pem
-              chmod 600 /home/ubuntu/.ssh/bastion_key.pem
-              chown ubuntu:ubuntu /home/ubuntu/.ssh/bastion_key.pem
+              mkdir -p /home/${var.key_owner}/.ssh
+              echo '${tls_private_key.bastion_key.private_key_pem}' > ${var.private_key_path}
+              chmod 600 ${var.private_key_path}
+              chown ${var.key_owner}:${var.key_owner} ${var.private_key_path}
               EOF
 }
 
