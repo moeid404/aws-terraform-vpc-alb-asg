@@ -1,5 +1,9 @@
 # AWS Infrastructure with Terraform
 ![Project Logo](project-diagram.png)
+## Overview
+
+
+
 This repository contains Terraform modules for provisioning a highly available, scalable, and secure infrastructure on AWS. The setup includes a VPC, public and private subnets, NAT Gateways, Bastion Host, Auto Scaling Group (ASG), and an Application Load Balancer (ALB) to route traffic to web servers running in the private subnets.
 
 ## Project Structure
